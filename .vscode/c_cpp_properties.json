@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/../../IMPORTANT!/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
@@ -14,7 +15,8 @@
         {
             "name": "GLFW",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/../../IMPORTANT!/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
