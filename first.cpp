@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+void windowResize (GLFWwindow* window, int width, int height);
+
 int main ()
 {
   glfwInit();
@@ -28,5 +30,19 @@ int main ()
 
   //start rendering
   glViewport(100, 100, 800, 600);
+  glfwSetFramebufferSizeCallback(window, windowResize);
+
+  //render loop to keep window open
+  while (!glfwWindowShouldClose(window)) {
+    //swapping next draw buffer
+    glfwSwapBuffers(window);
+    //invokes respective callbacks
+    glfwPollEvents();
+  }
+  glfwTerminate();
   return 0;
+}
+
+void windowResize (GLFWwindow* window, int width, int height) {
+  glViewport(100, 100, width, height);
 }
