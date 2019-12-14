@@ -1,1 +1,1 @@
-g++ -I/home/nik/Documents/IMPORTANT\!/include -L/home/nik/Documents/IMPORTANT\!/glfw-build/src first.cpp -lglfw3 -lGL -lX11 -lXrandr -lpthread -ldl -lXi
+g++ -I/home/nik/Documents/IMPORTANT\!/include -L/home/nik/Documents/IMPORTANT\!/glfw-build/src -L/home/nik/Documents/IMPORTANT\!/glad/src first.cpp -lglfw3 -lglad -lGL -lX11 -lXrandr -lpthread -ldl -lXi
