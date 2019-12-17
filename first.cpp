@@ -58,6 +58,10 @@ int main ()
   glAttachShader(shaderProgram, fragmentShader);
   glLinkProgram(shaderProgram);
 
+  glUseProgram(shaderProgram);
+  glDeleteShader(fragmentShader);
+  glDeleteShader(vertexShader);
+
   //render loop to keep window open
   while (!glfwWindowShouldClose(window)) {
     draw();
