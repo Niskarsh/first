@@ -51,6 +51,13 @@ int main ()
   glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
   glCompileShader(fragmentShader);
 
+  //create a shader program and link shaders to it
+  unsigned int shaderProgram;
+  shaderProgram = glCreateProgram();
+  glAttachShader(shaderProgram, vertexShader);
+  glAttachShader(shaderProgram, fragmentShader);
+  glLinkProgram(shaderProgram);
+
   //render loop to keep window open
   while (!glfwWindowShouldClose(window)) {
     draw();
