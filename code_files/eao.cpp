@@ -20,6 +20,14 @@ int main () {
         return -1;
     }
     glfwMakeContextCurrent(window);
+
+    //making sure glad is loaded
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+      cout << "Failed to initialize GLAD" << endl;
+      return -1;
+    }
+
     glViewport(100, 100, 800, 600);
     while (!glfwWindowShouldClose(window))
     {
