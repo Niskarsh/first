@@ -5,6 +5,23 @@ using namespace std;
 
 const char* vertexShaderSource = "#version 330 core\n layout (location =0) in vec3 aPos;void main () { gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0); }";
 const char* fragmentShaderSource = "#version 330 core\nout vec4 FragColor;void main () { FragColor = vec4(1.0f, 1.0f, .5f, 1.0f); }";
+float vertices[] = {
+    0.0f, .5f, 0.0f,
+    .5f, -.5f, 0.0f,
+    -.5f, -.5f, 0.0f 
+};
+float rectangleVertices[] = {
+    -.5f, .5f, 0.0f,
+    .5f, .5f, 0.0f,
+    -.5f, -.5f, 0.0f,
+    .5f, .5f, 0.0f,
+    .5f, -.5f, 0.0f,
+    -.5f, -.5f, 0.0f 
+};
+
+unsigned int vao, vbo, rao, rbo;
+int count =3;
+
 void windowResize (GLFWwindow* window, int width, int height);
 void processInput (GLFWwindow* window, int key, int scancode, int action, int mods);
 
@@ -30,23 +47,35 @@ int main () {
       return -1;
     }
 
-    float vertices[] = {
-        0.0f, .5f, 0.0f,
-        .5f, -.5f, 0.0f,
-        -.5f, -.5f, 0.0f 
-    };
 
-    unsigned int vao, vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    
+    
 
 
     glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
     glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
-    
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), 0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+
+    glGenVertexArrays(1, &rao);
+    glGenBuffers(1, &rbo);
+    glBindVertexArray(rao);
+    glBindBuffer(GL_ARRAY_BUFFER, rbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(rectangleVertices), rectangleVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), 0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+    
+    glBindVertexArray(vao);
+
+
 
 
     unsigned int vertexShader;
@@ -91,8 +120,7 @@ int main () {
         glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(shaderProgram);
-        glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, count);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -108,8 +136,20 @@ void windowResize (GLFWwindow* window, int width, int height) {
 }
 
 void processInput (GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if(key==GLFW_KEY_ESCAPE&&action==GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
 
+    if (action==GLFW_PRESS) {
+        switch(key) {
+            case GLFW_KEY_ESCAPE:
+                glfwSetWindowShouldClose(window, true);
+                break;
+            case GLFW_KEY_A:
+                glBindVertexArray(rao);
+                count=6;
+                break;
+            case GLFW_KEY_S:
+                count=3;
+                glBindVertexArray(vao);
+                break;
+        }
     }
 }
