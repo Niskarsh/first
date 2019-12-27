@@ -1,0 +1,1 @@
+g++ -o ./executables/first -I/$(pwd)/../include -L/$(pwd)/../lib -L/$(pwd)/../lib ../code_files/first.cpp -lglfw3 -lglad -lGL -lX11 -lXrandr -lpthread -ldl -lXi
